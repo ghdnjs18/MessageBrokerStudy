@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +38,20 @@ public class RedisService {
     // List 전체 조회
     public List<Object> getListValues(String key) {
         return redisRepository.getListValues(key);
+    }
+
+    // Set 저장
+    public void saveSet(String key, String value) {
+        redisRepository.saveSet(key, value);
+    }
+
+    // Set 단일 조회
+    public String getSetValue(String key) {
+        return (String) redisRepository.getSetValue(key);
+    }
+
+    // set 전체 조회
+    public Set<Object> getSetValues(String key) {
+        return redisRepository.getSetValues(key);
     }
 }

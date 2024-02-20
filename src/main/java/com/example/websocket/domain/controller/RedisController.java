@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,5 +38,20 @@ public class RedisController {
     @GetMapping("/listAll/{id}")
     public List<Object> getListValues(@PathVariable String id) {
         return redisService.getListValues("listKey:" + id);
+    }
+
+    @PostMapping("/set")
+    public void saveSet(@RequestBody RedisRequestDto requestDto) {
+        redisService.saveSet("setKey:" + requestDto.getId(), "setTest" + requestDto.getId());
+    }
+
+    @GetMapping("/set/{id}")
+    public String getSetValue(@PathVariable String id) {
+        return redisService.getSetValue("setKey:" + id);
+    }
+
+    @GetMapping("/setAll/{id}")
+    public Set<Object> getSetValues(@PathVariable String id) {
+        return redisService.getSetValues("setKey:" + id);
     }
 }

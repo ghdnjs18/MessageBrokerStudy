@@ -28,81 +28,81 @@ public class RedisController {
 
     @PostMapping("/list")
     public void saveList(@RequestBody RedisRequestDto requestDto) {
-        redisService.saveList("listKey:" + requestDto.getId(), "listTest" + requestDto.getId());
+        redisService.saveList(requestDto.getId(), requestDto.getId());
     }
 
     @GetMapping("/list/{id}/{index}")
     public String getListValue(@PathVariable String id, @PathVariable long index) {
-        return redisService.getListValue("listKey:" + id, index);
+        return redisService.getListValue(id, index);
     }
 
     @GetMapping("/listAll/{id}")
     public List<Object> getListValues(@PathVariable String id) {
-        return redisService.getListValues("listKey:" + id);
+        return redisService.getListValues(id);
     }
 
     @PostMapping("/set")
     public void saveSet(@RequestBody RedisRequestDto requestDto) {
-        redisService.saveSet("setKey:" + requestDto.getId(), "setTest" + requestDto.getId());
+        redisService.saveSet(requestDto.getId(), requestDto.getId());
     }
 
     @GetMapping("/set/{id}")
     public String getSetValue(@PathVariable String id) {
-        return redisService.getSetValue("setKey:" + id);
+        return redisService.getSetValue(id);
     }
 
     @GetMapping("/setAll/{id}")
     public Set<Object> getSetValues(@PathVariable String id) {
-        return redisService.getSetValues("setKey:" + id);
+        return redisService.getSetValues(id);
     }
 
     @PostMapping("/zSet")
     public void saveZSet(@RequestBody RedisRequestDto requestDto) {
-        redisService.saveZSet("score:" + requestDto.getId(), "value:", requestDto.getValue());
+        redisService.saveZSet(requestDto.getId(), requestDto.getValue(), requestDto.getScore());
     }
 
     @GetMapping("/zSetIndex/{id}")
     public Set<Object> getZSetIndexValues(@PathVariable String id) {
-        return redisService.getZSetIndexValues("score:" + id);
+        return redisService.getZSetIndexValues(id);
     }
 
     @GetMapping("/zSetScore/{id}/{min}/{max}")
     public Set<Object> getZSetScoreValues(@PathVariable String id, @PathVariable int min, @PathVariable int max) {
-        return redisService.getZSetScoreValues("score:" + id, min, max);
+        return redisService.getZSetScoreValues(id, min, max);
     }
 
     @GetMapping("/zSetWithScores/{id}/{min}/{max}")
     public Set<Object> getZSetScoreKeyValues(@PathVariable String id, @PathVariable int min, @PathVariable int max) {
-        return redisService.getZSetScoreKeyValues("score:" + id, min, max);
+        return redisService.getZSetScoreKeyValues(id, min, max);
     }
 
     @PostMapping("/hash")
     public void saveHash(@RequestBody RedisRequestDto requestDto) {
-        redisService.saveHash("hashKey:" + requestDto.getId(), "testKey:" + requestDto.getId(), "hashTest" + requestDto.getId());
+        redisService.saveHash(requestDto.getId(), requestDto.getId(), requestDto.getValue());
     }
 
     @PostMapping("/hashAll")
     public void saveAllHash(@RequestBody RedisRequestDto requestDto) {
-        redisService.saveAllHash("hashKey:" + requestDto.getId(), "testKey:" + requestDto.getId(), "hashTest" + requestDto.getId());
+        redisService.saveAllHash(requestDto.getId(), requestDto.getId(), requestDto.getValue());
     }
 
     @GetMapping("/hash/{id}")
     public String getHash(@PathVariable String id) {
-        return redisService.getHash("hashKey:" + id, "testKey:" + id);
+        return redisService.getHash(id, id);
     }
 
     @GetMapping("/hashKey/{id}")
     public Set<Object> getHashKeys(@PathVariable String id) {
-        return redisService.getHashKeys("hashKey:" + id);
+        return redisService.getHashKeys(id);
     }
 
     @GetMapping("/hashValue/{id}")
     public List<Object> getHashValues(@PathVariable String id) {
-        return redisService.getHashValues("hashKey:" + id);
+        return redisService.getHashValues(id);
     }
 
     @GetMapping("/hashMap/{id}")
     public Map<Object, Object> getHashMaps(@PathVariable String id) {
-        return redisService.getHashMaps("hashKey:" + id);
+        return redisService.getHashMaps(id);
     }
 }

@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RedisRequestDto {
     private String id;
-    private int value;
+    private String value;
+    private int score;
 }

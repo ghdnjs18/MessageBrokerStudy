@@ -54,4 +54,24 @@ public class RedisController {
     public Set<Object> getSetValues(@PathVariable String id) {
         return redisService.getSetValues("setKey:" + id);
     }
+
+    @PostMapping("/zSet")
+    public void saveZSet(@RequestBody RedisRequestDto requestDto) {
+        redisService.saveZSet("score:" + requestDto.getId(), "value:", requestDto.getValue());
+    }
+
+    @GetMapping("/zSetIndex/{id}")
+    public Set<Object> getZSetIndexValues(@PathVariable String id) {
+        return redisService.getZSetIndexValues("score:" + id);
+    }
+
+    @GetMapping("/zSetScore/{id}/{min}/{max}")
+    public Set<Object> getZSetScoreValues(@PathVariable String id, @PathVariable int min, @PathVariable int max) {
+        return redisService.getZSetScoreValues("score:" + id, min, max);
+    }
+
+    @GetMapping("/zSetWithScores/{id}/{min}/{max}")
+    public Set<Object> getZSetScoreKeyValues(@PathVariable String id, @PathVariable int min, @PathVariable int max) {
+        return redisService.getZSetScoreKeyValues("score:" + id, min, max);
+    }
 }

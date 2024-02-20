@@ -54,4 +54,26 @@ public class RedisService {
     public Set<Object> getSetValues(String key) {
         return redisRepository.getSetValues(key);
     }
+
+    // Sorted Set 저장
+    public void saveZSet(String key, String value, double score) {
+        for (int i = 1; i < 4; i++) {
+            redisRepository.saveZSet(key, value + i , score * i);
+        }
+    }
+
+    // Sorted set 인덱스 범위 조회
+    public Set<Object> getZSetIndexValues(String key) {
+        return redisRepository.getZSetIndexValues(key);
+    }
+
+    // Sorted Set 스코어 조회
+    public Set<Object> getZSetScoreValues(String key, int min, int max) {
+        return redisRepository.getZSetScoreValues(key, min, max);
+    }
+
+    // Sorted Set 스코어 조회
+    public Set<Object> getZSetScoreKeyValues(String key, int min, int max) {
+        return redisRepository.getZSetScoreKeyValues(key, min, max);
+    }
 }

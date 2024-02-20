@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -73,5 +74,35 @@ public class RedisController {
     @GetMapping("/zSetWithScores/{id}/{min}/{max}")
     public Set<Object> getZSetScoreKeyValues(@PathVariable String id, @PathVariable int min, @PathVariable int max) {
         return redisService.getZSetScoreKeyValues("score:" + id, min, max);
+    }
+
+    @PostMapping("/hash")
+    public void saveHash(@RequestBody RedisRequestDto requestDto) {
+        redisService.saveHash("hashKey:" + requestDto.getId(), "testKey:" + requestDto.getId(), "hashTest" + requestDto.getId());
+    }
+
+    @PostMapping("/hashAll")
+    public void saveAllHash(@RequestBody RedisRequestDto requestDto) {
+        redisService.saveAllHash("hashKey:" + requestDto.getId(), "testKey:" + requestDto.getId(), "hashTest" + requestDto.getId());
+    }
+
+    @GetMapping("/hash/{id}")
+    public String getHash(@PathVariable String id) {
+        return redisService.getHash("hashKey:" + id, "testKey:" + id);
+    }
+
+    @GetMapping("/hashKey/{id}")
+    public Set<Object> getHashKeys(@PathVariable String id) {
+        return redisService.getHashKeys("hashKey:" + id);
+    }
+
+    @GetMapping("/hashValue/{id}")
+    public List<Object> getHashValues(@PathVariable String id) {
+        return redisService.getHashValues("hashKey:" + id);
+    }
+
+    @GetMapping("/hashMap/{id}")
+    public Map<Object, Object> getHashMaps(@PathVariable String id) {
+        return redisService.getHashMaps("hashKey:" + id);
     }
 }

@@ -1,10 +1,13 @@
 package com.example.websocket.domain.service;
 
+import com.example.websocket.domain.dto.RedisRequestDto;
 import com.example.websocket.global.redis.RedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -75,5 +78,39 @@ public class RedisService {
     // Sorted Set 스코어 조회
     public Set<Object> getZSetScoreKeyValues(String key, int min, int max) {
         return redisRepository.getZSetScoreKeyValues(key, min, max);
+    }
+
+    // Hash 저장
+    public void saveHash(String key, String hashKey, String value) {
+        redisRepository.saveHash(key, hashKey, value);
+    }
+
+    // Hash 다중 저장
+    public void saveAllHash(String key, String hashKey, String value) {
+        Map<String, String> map = new HashMap<>();
+        map.put(hashKey + "first", value + "first");
+        map.put(hashKey + "second", value + "second");
+        map.put(hashKey + "third", value + "third");
+        redisRepository.saveHash(key, map);
+    }
+
+    // Hash 단일 조회
+    public String getHash(String key, String hashKey) {
+        return (String) redisRepository.getHash(key, hashKey);
+    }
+
+    // Hash key 전체 조회
+    public Set<Object> getHashKeys(String key) {
+        return redisRepository.getHashKeys(key);
+    }
+
+    // Hash value 전체 조회
+    public List<Object> getHashValues(String key) {
+        return redisRepository.getHashValues(key);
+    }
+
+    // Hash 전체 조회
+    public Map<Object, Object> getHashMaps(String key) {
+        return redisRepository.getHashMaps(key);
     }
 }

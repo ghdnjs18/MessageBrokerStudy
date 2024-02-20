@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -87,5 +88,41 @@ public class RedisRepository {
     public Set<Object> getZSetScoreKeyValues(String key, int min, int max) {
         ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
         return Collections.singleton(zSetOperations.rangeByScoreWithScores(key, min, max));
+    }
+
+    // Hash 저장
+    public void saveHash(String key, String hashKey, String value) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(key, hashKey, value);
+    }
+
+    // Hash 다중 저장
+    public void saveHash(String key, Map<String, String> value) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.putAll(key, value);
+    }
+
+    // Hash 단일 조회
+    public Object getHash(String key, String hashKey) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.get(key, hashKey);
+    }
+
+    // Hash key 전체 조회
+    public Set<Object> getHashKeys(String key) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.keys(key);
+    }
+
+    // Hash value 전체 조회
+    public List<Object> getHashValues(String key) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.values(key);
+    }
+
+    // Hash 전체 조회
+    public Map<Object, Object> getHashMaps(String key) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.entries(key);
     }
 }
